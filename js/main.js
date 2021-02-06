@@ -1,5 +1,3 @@
-
-
 // Asignación de elemento contenedor.
 var listContainer = document.getElementById('contenedorLista');
 
@@ -62,16 +60,27 @@ headerTaskListDiv.appendChild(deleteField);
 
 function addTask(inputText){
 
-    var taskDiv = createElement('div');
-    var taskText = createElement('p');
-    var taskDelete = createElement('button');
+    var taskDiv = document.createElement('div');
+    var taskText = document.createElement('p');
+    var taskDelete = document.createElement('button');
+
+    taskDiv.className = 'row';
+    taskText.className = 'col-sm';
+    taskDelete.className = 'col-sm';
+
+    taskDelete.addEventListener('click', () => {
+        // Agregar funcion de boton
+    });
 
     taskText.innerText = inputText;
-
-    taskContainer.appendChild(taskDiv);
     taskDiv.appendChild(taskText);
     taskDiv.appendChild(taskDelete);
 
+    taskContainer.appendChild(taskDiv);
+
+    textInput.value = '';
 }
 
-addTaskButton.addEventListener('click',addTask('prueba'));
+addTaskButton.addEventListener('click', () => {
+    addTask(textInput.value);
+});
