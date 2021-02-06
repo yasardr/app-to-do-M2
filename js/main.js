@@ -1,77 +1,39 @@
 
 
-// Asignación de elemento contenedor.
+// Get the id of the containing element.
 var listContainer = document.getElementById('contenedorLista');
 
-// Creacion de las Variables de los Elementos
+// Creation of the base elements
 var appTitle = document.createElement('h1');
+var form = document.createElement('form');
+var textInput = document.createElement('input');
 var addTaskButton = document.createElement('button');
 var taskContainer = document.createElement('section');
-var taskName = document.createElement('h3');
-var deleteField = document.createElement('p');
-var textInput = document.createElement('input');
 var headerTaskListDiv =  document.createElement('div');
+var list = document.createElement('ol');
 
-// Adding Propierties to Input
+// add properties of each of the elements created
+appTitle.className = 'title';
+form.classList='todo-form';
 textInput.type = 'text';
-textInput.name = 'taskNameField';
-
-// Adding Container Styles
-listContainer.style.backgroundColor = 'black';
-listContainer.style.padding = '20px';
-listContainer.style.textAlign = 'center';
-
-taskContainer.style.backgroundColor = 'white';
-taskContainer.style.padding = '20px';
-taskContainer.style.marginTop = '20px';
-taskContainer.style.textAlign = 'left';
-
-// Adding Text Style
-
-
-// Adding Inner Text and Styles
-
-appTitle.style.color = 'white';
-taskName.color = 'black';
-
-addTaskButton.innerText = 'Add Task';
-deleteField.innerText = 'Delete'
-taskName.innerText = 'Task:';
-
-
-
-//
+textInput.id = 'text';
+addTaskButton.type ='submit'
 taskContainer.className = 'container';
-headerTaskListDiv.className = 'row';
-taskName.className = 'col-sm';
-deleteField.className = 'col-sm';
+headerTaskListDiv.id = 'currentTask';
+list.id = 'ol-list';
 
-// Agregar el texto al h1.
-appTitle.innerText = 'To Do List'
+//console.log(listContainer);
+
 
 // Adding Elements to Structure
-
 listContainer.appendChild(appTitle);
-listContainer.appendChild(textInput);
-listContainer.appendChild(addTaskButton);
+appTitle.appendChild(document.createTextNode('To Do List'));
+listContainer.appendChild(form);
+form.appendChild(textInput);
+form.appendChild(addTaskButton);
+addTaskButton.appendChild(document.createTextNode('Add Task'));
 listContainer.appendChild(taskContainer);
 taskContainer.appendChild(headerTaskListDiv);
-headerTaskListDiv.appendChild(taskName);
-headerTaskListDiv.appendChild(deleteField);
+headerTaskListDiv.appendChild(list);
 
 
-function addTask(inputText){
-
-    var taskDiv = createElement('div');
-    var taskText = createElement('p');
-    var taskDelete = createElement('button');
-
-    taskText.innerText = inputText;
-
-    taskContainer.appendChild(taskDiv);
-    taskDiv.appendChild(taskText);
-    taskDiv.appendChild(taskDelete);
-
-}
-
-addTaskButton.addEventListener('click',addTask('prueba'));
