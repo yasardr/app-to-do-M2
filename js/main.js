@@ -38,6 +38,8 @@ addTaskButton.innerText = 'Add Task';
 deleteField.innerText = 'Delete'
 taskName.innerText = 'Task:';
 
+
+
 //
 taskContainer.className = 'container';
 headerTaskListDiv.className = 'row';
@@ -56,3 +58,20 @@ listContainer.appendChild(taskContainer);
 taskContainer.appendChild(headerTaskListDiv);
 headerTaskListDiv.appendChild(taskName);
 headerTaskListDiv.appendChild(deleteField);
+
+
+function addTask(inputText){
+
+    var taskDiv = createElement('div');
+    var taskText = createElement('p');
+    var taskDelete = createElement('button');
+
+    taskText.innerText = inputText;
+
+    taskContainer.appendChild(taskDiv);
+    taskDiv.appendChild(taskText);
+    taskDiv.appendChild(taskDelete);
+
+}
+
+addTaskButton.addEventListener('click',addTask('prueba'));
