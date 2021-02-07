@@ -67,15 +67,8 @@ function addTask(task){
     listTask.className = 'todo-list';
     listTask.setAttribute('id',task.id);
 
-    const createDiv = document.createElement('div');
-    createDiv.className = "check";
-
-    listTask.appendChild(createDiv);
-
     // Name Task
-    var taskName = document.createElement('span');
-    taskName.appendChild(document.createTextNode(task.name));
-    createDiv.appendChild(taskName);
+    listTask.innerHTML = `<span class = "check">${task.name}</span>`;
 
     // Complete button
     const completedButton = document.createElement('button');
