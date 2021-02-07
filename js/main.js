@@ -15,23 +15,22 @@ var list = document.createElement('ol');
 
 // add properties of each of the elements created
 appTitle.className = 'title';
-form.classList='todo-form';
+form.className ='todo-form';
 textInput.type = 'text';
 textInput.id = 'text';
-textInput.classList = 'todo_input';
+textInput.className = 'todo_input';
 addTaskButton.type ='submit'
-addTaskButton.classList = 'todo_button'
+addTaskButton.className = 'todo_button'
 taskContainer.className = 'container';
 taskListDiv.id = 'currentTask';
-taskListDiv.classList = 'todo_list'
+taskListDiv.className = 'todo_list'
 list.id = 'list';
 
-console.log(listContainer);
-
+// console.log(listContainer);
 
 // Adding Elements to Structure
 listContainer.appendChild(appTitle);
-appTitle.appendChild(document.createTextNode('To Do List'));
+appTitle.appendChild(document.createTextNode('To Do App'));
 listContainer.appendChild(form);
 form.appendChild(textInput);
 form.appendChild(addTaskButton);
@@ -39,90 +38,98 @@ listContainer.appendChild(taskContainer);
 taskContainer.appendChild(taskListDiv);
 taskListDiv.appendChild(list);
 
-// selectores
-const todoInput = document.querySelector ('.todo_input');
-const todoButton = document.querySelector ('.todo_button');
-const todoList = document.querySelector ('.todo_list');
+// List of tasks
+let tasks = [];
 
-let tasks = []; // new Array
-
-//event listeners
-todoButton.addEventListener('click', function(event){
+// Create task
+addTaskButton.addEventListener('click', function(event){
     
     event.preventDefault();
-
-    const input = document.getElementById('text').value;
     
-    if (input != "") {
+    if (textInput.value !== "") {
 
         let task = {
           id: new Date().getTime(),
-          name: input,
+          name: textInput.value,
         };
         tasks.push(task);
         addTask(task);
-        todoInput.value = "";
+        textInput.value = "";
     }
     else{
         return null
     }
 });
 
-todoList.addEventListener("click", deleteAndCheck)
-
-
-//Functions
-
+// Append task to html
 function addTask(task){
 
-    const todoList = document.getElementById("list");
-   
-    // to do li
+    // Element of the list
     const listTask = document.createElement('li');
     listTask.className = 'todo-list';
     listTask.setAttribute('id',task.id);
 
     const createDiv = document.createElement('div');
-    createDiv.classList = "check";
+    createDiv.className = "check";
 
     listTask.appendChild(createDiv);
 
-    //Name Task
+    // Name Task
     var taskName = document.createElement('span');
-    var name = document.createTextNode(task.name);
-    taskName.appendChild(name);
+    taskName.appendChild(document.createTextNode(task.name));
     createDiv.appendChild(taskName);
 
-    //check mark BUTTON
+    // Complete button
     const completedButton = document.createElement('button');
     completedButton.innerHTML = '<i class="fas fa-check"></i>';
-    completedButton.classList = 'complete_btn';
+    completedButton.className = 'complete_btn';
     listTask.appendChild(completedButton);
 
-     //delete BUTTON
+     // Delete button
     const buttonDelete = document.createElement("button");
     buttonDelete.innerHTML = '<i class="far fa-trash-alt"></i>';
-    buttonDelete.classList ='delete_btn';
+    buttonDelete.className ='delete_btn';
     listTask.appendChild(buttonDelete);
 
-     //Append to Actual LIST
-    todoList.appendChild(listTask);
+    // Append to actual list
+    list.appendChild(listTask);
 }
 
+taskListDiv.addEventListener("click", deleteAndCheck);
+
+taskListDiv.parentNode
+
+// Analyze if delete or check task
 function deleteAndCheck(event) {
     const item = event.target;
+    // console.log(item);
     
-    //DELETE ITEM
-   if (item.classList.contains("delete_btn"))
-   {
-       const taskId = item.closest("li").id;
-       document.getElementById(taskId).remove();
+    // Delete item
+   if (item.className === "delete_btn" || item.parentNode.className === "delete_btn" ) {
+        const taskId = item.closest("li").id;
+        document.getElementById(taskId).remove();
+   } else {
+        // Complete item
+        if (item.className === "complete_btn") {
+            item.previousSibling.classList.toggle("completedItem");
+            changeIcon(item);
+        } else {
+            if (item.parentNode.className === "complete_btn") {
+                item.parentNode.previousSibling.classList.toggle("completedItem");
+                changeIcon(item.parentNode);
+            }
+        }
    }
+}
 
-   //COMPLETE ITEM
-   if (item.classList.contains("complete_btn")) 
-   {
-       const taskCheck = item.parentElement;
-       taskCheck.classList.toggle("completedItem");
-   }
+function changeIcon(item) {
+    if (item.children[0].classList[1] === 'fa-check') {
+        item.children[0].classList.remove('fa-check');
+        item.children[0].classList.add('fa-undo-alt');
+        item.style = 'background-color: #0091ea;';
+    } else {
+        item.children[0].classList.remove('fa-undo-alt');
+        item.children[0].classList.add('fa-check');
+        item.style = 'background-color: #43a047;';
+    }
 }
