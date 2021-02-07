@@ -15,18 +15,16 @@ var list = document.createElement('ol');
 
 // add properties of each of the elements created
 appTitle.className = 'title';
-form.className ='todo-form';
 textInput.type = 'text';
 textInput.id = 'text';
 textInput.className = 'todo_input';
 addTaskButton.type ='submit'
 addTaskButton.className = 'todo_button'
-taskContainer.className = 'container';
-taskListDiv.id = 'currentTask';
+taskContainer.className = 'containerTask';
 taskListDiv.className = 'todo_list'
 list.id = 'list';
 
-// console.log(listContainer);
+console.log(listContainer);
 
 // Adding Elements to Structure
 listContainer.appendChild(appTitle);
@@ -102,7 +100,6 @@ taskListDiv.parentNode
 // Analyze if delete or check task
 function deleteAndCheck(event) {
     const item = event.target;
-    // console.log(item);
     
     // Delete item
    if (item.className === "delete_btn" || item.parentNode.className === "delete_btn" ) {
