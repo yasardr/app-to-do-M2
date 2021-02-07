@@ -8,10 +8,11 @@ body {
     text-align: center;
 }
 
-.container{
+.containerTask{
     background-Color: white;
     padding: 30px;
     margin-Top: 20px;
+    font-family: 'Raleway', sans-serif;
 }
 
 .title{
@@ -22,6 +23,15 @@ body {
     border-radius: 5px;
     border:none;
     margin: 2px;
+}
+
+.todo_input{
+    height: 30px;
+    outline: 0;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
+    color: #3f3e3e;
 }
 
 #text {
@@ -43,15 +53,17 @@ body {
     outline: none;
 }
 
-
 #list{
     list-style:none;
 }
 
 .todo-list  {
-    display: flex;
-    justify-content: flex-start;
-    align-items: baseline;
+   display: flex;
+    align-items: center;
+    border-bottom: 1px solid lightgrey;
+    padding: 15px 0;
+    font-size: 1rem;
+    color: #595959;
 }
 
 ol {
@@ -61,7 +73,6 @@ ol {
 
 span{
     font-size: 20px;
-    font-weight: 600;
 }
 
 .check{
@@ -94,4 +105,14 @@ span{
     text-decoration: line-through;
     opacity: 0.5;
     transform: scale(0.96);
+}
+
+/* Media queries */
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 992px) { 
+
+    .todo-list  {
+        justify-content: center;
+     }
+     
 }
