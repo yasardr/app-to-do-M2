@@ -8,8 +8,9 @@ var appTitle = document.createElement('h1');
 var form = document.createElement('form');
 var textInput = document.createElement('input');
 var addTaskButton = document.createElement('button');
+addTaskButton.innerHTML = '<i class="fas fa-plus-square"></i>';
 var taskContainer = document.createElement('section');
-var headerTaskListDiv =  document.createElement('div');
+var taskListDiv =  document.createElement('div');
 var list = document.createElement('ol');
 
 // add properties of each of the elements created
@@ -17,12 +18,15 @@ appTitle.className = 'title';
 form.classList='todo-form';
 textInput.type = 'text';
 textInput.id = 'text';
+textInput.classList = 'todo_input';
 addTaskButton.type ='submit'
+addTaskButton.classList = 'todo_button'
 taskContainer.className = 'container';
-headerTaskListDiv.id = 'currentTask';
-list.id = 'ol-list';
+taskListDiv.id = 'currentTask';
+taskListDiv.classList = 'todo_list'
+list.id = 'list';
 
-//console.log(listContainer);
+console.log(listContainer);
 
 
 // Adding Elements to Structure
@@ -31,99 +35,94 @@ appTitle.appendChild(document.createTextNode('To Do List'));
 listContainer.appendChild(form);
 form.appendChild(textInput);
 form.appendChild(addTaskButton);
-addTaskButton.appendChild(document.createTextNode('Add Task'));
 listContainer.appendChild(taskContainer);
-taskContainer.appendChild(headerTaskListDiv);
-headerTaskListDiv.appendChild(list);
+taskContainer.appendChild(taskListDiv);
+taskListDiv.appendChild(list);
 
+// selectores
+const todoInput = document.querySelector ('.todo_input');
+const todoButton = document.querySelector ('.todo_button');
+const todoList = document.querySelector ('.todo_list');
 
-//The form class is obtained to be able to make the functionality of its child nodes
-var todoForm = document.querySelector(".todo-form");
-let tasks = []; //newArray
+let tasks = []; // new Array
 
-/**Evento listener para el contenedor form.
- * está función  obtiene el valor de campo de entrada y verifica si el campo de entrada no está vacío,
- * crea un objeto llamado "task" con 3 propiedades
- * id: valor único
- * name: nombre de la tarea
- * isComplete : valor booleano (esté esta pensado para el checkbox si se completa la tarea).
- * Se agrega la tarea en el arreglo llamado "tasks"
- * Se llama la función addTask
- * se resetea el form.
-*/
-todoForm.addEventListener('submit', function(event){
+//event listeners
+todoButton.addEventListener('click', function(event){
+    
     event.preventDefault();
-    var input = document.getElementById('text').value;
+
+    const input = document.getElementById('text').value;
     
     if (input != "") {
+
         let task = {
           id: new Date().getTime(),
           name: input,
-          isCompleted: false
         };
         tasks.push(task);
         addTask(task);
-        todoForm.reset();
+        todoInput.value = "";
+    }
+    else{
+        return null
     }
 });
 
-
-/**Evento listener "Click" al div padre
- * donde contiene como nodo hijo el botón eliminar.
- * 1.-Se verifica si se hizo clic es el botón "Delete"
- * 2.-Si eso ocurre,  se obtiene el id del elemento de la lista.
- * 3.-Se envia el id a la función removeTask
- */
-headerTaskListDiv.addEventListener("click", (event) => {
-    if (event.target.classList.contains("remove-task")){
-        let taskId = event.target.closest("li").id;
-        removeTask(taskId);
-    }
-});
+todoList.addEventListener("click", deleteAndCheck)
 
 
-/**Función que agrega las tareas en forma de lista creando li y agregando 
- * como atributo el id de la tarea, con los elementos checkbox,span,button.
-*/
+//Functions
+
 function addTask(task){
-    var todoList = document.getElementById("ol-list");
+
+    const todoList = document.getElementById("list");
    
-    var listTask = document.createElement('li');
-    listTask.className = 'containerChild';
+    // to do li
+    const listTask = document.createElement('li');
+    listTask.className = 'todo-list';
     listTask.setAttribute('id',task.id);
 
-    var createDiv = document.createElement('div');
-    createDiv.classList = "check-boxes";
+    const createDiv = document.createElement('div');
+    createDiv.classList = "check";
 
-    listTask.append(createDiv);
+    listTask.appendChild(createDiv);
 
-    var checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.id = task.name;
-    checkbox.className = 'check';
+    //Name Task
+    var taskName = document.createElement('span');
+    var name = document.createTextNode(task.name);
+    taskName.appendChild(name);
+    createDiv.appendChild(taskName);
 
-    createDiv.append(checkbox);
+    //check mark BUTTON
+    const completedButton = document.createElement('button');
+    completedButton.innerHTML = '<i class="fas fa-check"></i>';
+    completedButton.classList = 'complete_btn';
+    listTask.appendChild(completedButton);
 
-    var taskTitle = document.createElement('span');
-    var textTitle = document.createTextNode(task.name);
+     //delete BUTTON
+    const buttonDelete = document.createElement("button");
+    buttonDelete.innerHTML = '<i class="far fa-trash-alt"></i>';
+    buttonDelete.classList ='delete_btn';
+    listTask.appendChild(buttonDelete);
 
-    taskTitle.append(textTitle);
-    createDiv.append(taskTitle);
-
-
-    var buttonDelete = document.createElement("button");
-    var textButton = document.createTextNode("Delete");
-    buttonDelete.classList ='remove-task';
-    buttonDelete.append(textButton);
-    listTask.append(buttonDelete);
-
-    todoList.append(listTask);
+     //Append to Actual LIST
+    todoList.appendChild(listTask);
 }
 
-//Función removeTask que recibe el id del evento listener.
-function removeTask(taskId) {
-    document.getElementById(taskId).remove();
+function deleteAndCheck(event) {
+    const item = event.target;
+    
+    //DELETE ITEM
+   if (item.classList.contains("delete_btn"))
+   {
+       const taskId = item.closest("li").id;
+       document.getElementById(taskId).remove();
+   }
+
+   //COMPLETE ITEM
+   if (item.classList.contains("complete_btn")) 
+   {
+       const taskCheck = item.parentElement;
+       taskCheck.classList.toggle("completedItem");
+   }
 }
-
-
-
