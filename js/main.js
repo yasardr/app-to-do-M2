@@ -1,9 +1,9 @@
 
 
-// Get the id of the containing element.
+// Get the container id in a variable so you can use it later to add the elements
 var listContainer = document.getElementById('contenedorLista');
 
-// Creation of the base elements
+// Creation of base elements according to the html structure
 var appTitle = document.createElement('h1');
 var form = document.createElement('form');
 var textInput = document.createElement('input');
@@ -24,9 +24,9 @@ taskContainer.className = 'containerTask';
 taskListDiv.className = 'todo_list'
 list.id = 'list';
 
-console.log(listContainer);
 
-// Adding Elements to Structure
+
+// Adding elements to structure 
 listContainer.appendChild(appTitle);
 appTitle.appendChild(document.createTextNode('To Do App'));
 listContainer.appendChild(form);
@@ -39,7 +39,7 @@ taskListDiv.appendChild(list);
 // List of tasks
 let tasks = [];
 
-// Create task
+// Create task by clicking the Add button
 addTaskButton.addEventListener('click', function(event){
     
     event.preventDefault();
@@ -86,6 +86,7 @@ function addTask(task){
     list.appendChild(listTask);
 }
 
+//Delete the task by clicking the div in the list where the delete button is located
 taskListDiv.addEventListener("click", deleteAndCheck);
 
 taskListDiv.parentNode
@@ -112,6 +113,7 @@ function deleteAndCheck(event) {
    }
 }
 
+//change the icon if the task has been marked as done.
 function changeIcon(item) {
     if (item.children[0].classList[1] === 'fa-check') {
         item.children[0].classList.remove('fa-check');
