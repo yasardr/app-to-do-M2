@@ -11,7 +11,7 @@ body {
 .containerTask{
     background-Color: white;
     padding: 30px;
-    margin-Top: 20px;
+    margin: 20px 15px;
     font-family: 'Raleway', sans-serif;
 }
 
@@ -31,7 +31,7 @@ body {
     border: none;
     font-size: 1rem;
     font-family: 'Raleway', sans-serif;
-    color: #3f3e3e;
+    color: #000;
 }
 
 #text {
@@ -58,12 +58,14 @@ body {
 }
 
 .todo-list  {
-   display: flex;
+    display: grid;
+    grid-template-columns: 2fr 50px 50px;
+    gap: 10px;
     align-items: center;
     border-bottom: 1px solid lightgrey;
     padding: 15px 0;
     font-size: 1rem;
-    color: #595959;
+    color: #000000;
 }
 
 ol {
@@ -71,12 +73,9 @@ ol {
     text-align: left;
 }
 
-span{
-    font-size: 20px;
-}
-
 .check{
     margin-right: 50px;
+    font-size: 20px;
 }
 
 .delete_btn,.complete_btn{
@@ -86,6 +85,7 @@ span{
     color:white;
     width: 50px;
     height: 30px;
+    
 }
 
 .delete_btn:focus,.complete_btn:focus{
@@ -108,11 +108,55 @@ span{
 }
 
 /* Media queries */
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) and (max-width: 992px) { 
 
-    .todo-list  {
-        justify-content: center;
-     }
-     
+@media (max-width: 575.98px) { 
+    .check{
+        font-size: 15px;
+        text-align: left;
+    }
+    .todo_input{
+        font-size: 15px;
+    }
 }
+
+@media (min-width: 576px) and (max-width: 767.98px) { 
+    .check{
+        font-size: 18px;
+        text-align: left;
+    }
+    .todo_input{
+        font-size: 18px;
+        width: 200px;
+    }
+
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .check{
+        font-size: 19px;
+        text-align: left;
+    }
+    .todo_input{
+        font-size: 19px;
+        width: 300px;
+    }
+ }
+ @media (min-width: 992px) and (max-width: 1199.98px) { 
+    .todo_input{
+        width: 400px;
+    }
+  }
+
+ @media (min-width: 1200px) { 
+    .check{
+        font-size: 22px;
+        text-align: left;
+    }
+    .todo_input{
+        font-size: 20px;
+        width: 500px;
+    }
+    .todo_button{
+        width: 55px;
+        height: 32px;
+    }
+ }
